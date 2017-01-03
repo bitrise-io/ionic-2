@@ -11,29 +11,6 @@ trigger_map:
 workflows:
   _ci_finish:
     steps:
-    - cache-push@0.9.3:
-        run_if: "false"
-        inputs:
-        - cache_paths: |-
-            $BITRISE_CACHE_DIR
-
-            $HOME/.gradle
-            ./.gradle
-
-            $HOME/.npm
-            /usr/lib/node_modules/cordova/bin/cordova
-            /usr/bin/cordova
-            /usr/lib/node_modules/ionic/bin/ionic
-            /usr/bin/ionic
-          opts: {}
-        - ignore_check_on_paths: |-
-            $HOME/.gradle/caches/*.lock
-            $HOME/.gradle/caches/*.bin
-            $HOME/.gradle/daemon/*/*.bin
-            $HOME/.gradle/daemon/*/*.bin.lock
-            ./.gradle/*.lock
-            ./.gradle/*.bin
-          opts: {}
     - deploy-to-bitrise-io@1.2.6:
         run_if: '{{getenv "BITRISE_BUILD_URL" | ne ""}}'
   _ci_setup:
@@ -41,8 +18,6 @@ workflows:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@3.4.1: {}
-    - cache-pull@0.9.1:
-        run_if: "false"
     - script@1.1.3:
         title: Install ionic and cordova
         inputs:
