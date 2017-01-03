@@ -75,8 +75,6 @@ workflows:
             # debug log
             set -x
 
-            # make sure that the "www"" dir exists, see: https://github.com/driftyco/ionic-cli/issues/935
-            mkdir -p ./www
             npm install
             # ionic platform add android
             ionic build android
@@ -104,8 +102,6 @@ workflows:
             # debug log
             set -x
 
-            # make sure that the "www"" dir exists, see: https://github.com/driftyco/ionic-cli/issues/935
-            mkdir -p ./www
             npm install
             # ionic platform add ios
             ionic build ios
