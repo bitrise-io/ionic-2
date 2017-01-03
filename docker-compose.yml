@@ -1,0 +1,8 @@
+version: '2'
+services:
+  app:
+    build: .
+    ports:
+     - "8100:8100"
+    volumes:
+     - .:/bitrise/src
