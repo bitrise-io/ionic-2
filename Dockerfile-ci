@@ -1,0 +1,3 @@
+FROM bitriseio/docker-android
+
+WORKDIR /bitrise/src

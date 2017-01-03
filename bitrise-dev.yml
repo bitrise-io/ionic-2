@@ -1,0 +1,46 @@
+format_version: 1.3.1
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+app:
+  envs:
+  - GIT_REPOSITORY_URL: https://github.com/bitrise-samples/ionic-2.git
+  - BITRISE_GIT_BRANCH: master
+workflows:
+  docker-compose-run-ci:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            docker-compose -f docker-compose-ci.yml build
+            docker-compose -f docker-compose-ci.yml run \
+              --rm --service-ports \
+              -e GIT_REPOSITORY_URL="$GIT_REPOSITORY_URL" -e BITRISE_GIT_BRANCH="$BITRISE_GIT_BRANCH" \
+              app bitrise run --config /bitrise/tmp/bitrise.yml ci
+          opts: {}
+  docker-compose-ci-console:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+
+            docker-compose -f docker-compose-ci.yml build
+            docker-compose -f docker-compose-ci.yml run \
+              --rm --service-ports \
+              app bash
+          opts: {}
+  docker-compose-dev-console:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+
+            docker-compose -f docker-compose-dev.yml build
+            docker-compose -f docker-compose-dev.yml run \
+              --rm --service-ports \
+              app bash
+          opts: {}
