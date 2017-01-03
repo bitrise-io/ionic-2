@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ionicframework.cutepuppypics811288;
+package com.ionicframework.cutepuppypics274355;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

@@ -12,4 +12,4 @@ gen
 out
 # Gradle builds
 build/
-.gradle/
+.gradle
