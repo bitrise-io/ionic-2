@@ -12,7 +12,7 @@ workflows:
   _ci_finish:
     steps:
     - cache-push@0.9.3:
-        run_if: false
+        run_if: "false"
         inputs:
         - cache_paths: |-
             $BITRISE_CACHE_DIR
@@ -33,6 +33,7 @@ workflows:
             $HOME/.gradle/daemon/*/*.bin.lock
             ./.gradle/*.lock
             ./.gradle/*.bin
+          opts: {}
     - deploy-to-bitrise-io@1.2.6:
         run_if: '{{getenv "BITRISE_BUILD_URL" | ne ""}}'
   _ci_setup:
@@ -41,7 +42,7 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@3.4.1: {}
     - cache-pull@0.9.1:
-        run_if: false
+        run_if: "false"
     - script@1.1.3:
         title: Install ionic and cordova
         inputs:
@@ -77,11 +78,14 @@ workflows:
             # make sure that the "www"" dir exists, see: https://github.com/driftyco/ionic-cli/issues/935
             mkdir -p ./www
             npm install
-            ionic platform add android
-            cordova build android
+            # ionic platform add android
+            ionic build android
             mv ./platforms/android/build/outputs/apk/android-debug.apk "${BITRISE_DEPLOY_DIR}"
           opts: {}
   build-ios:
+    envs:
+    - BITRISE_PROJECT_PATH: ./platforms/ios/cutePuppyPics.xcodeproj
+    - BITRISE_SCHEME: cutePuppyPics
     steps:
     - change-workdir@1.0.1:
         title: Change workdir to ionic project dir
@@ -103,13 +107,14 @@ workflows:
             # make sure that the "www"" dir exists, see: https://github.com/driftyco/ionic-cli/issues/935
             mkdir -p ./www
             npm install
-            ionic platform add ios
-            cordova build --release ios
+            # ionic platform add ios
+            ionic build ios
             # mv ./platforms/android/build/outputs/apk/android-debug.apk "${BITRISE_DEPLOY_DIR}"
           opts: {}
+    - xcode-archive@2.0.4: {}
   ci:
     before_run:
     - _ci_setup
     after_run:
-    - build-android
+    - build-ios
     - _ci_finish
