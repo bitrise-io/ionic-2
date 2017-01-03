@@ -111,23 +111,6 @@ exports.get_ios_deploy_version = function() {
 };
 
 /**
- * Gets pod (CocoaPods) util version
- * @return {Promise} Promise that either resolved with pod version
- *                           or rejected in case of error
- */
-exports.get_cocoapods_version = function() {
-    var d = Q.defer();
-    child_process.exec('pod --version', function(error, stdout, stderr) {
-        if (error) {
-            d.reject(stderr);
-        } else {
-            d.resolve(stdout);
-        }
-    });
-    return d.promise;
-};
-
-/**
  * Gets ios-sim util version
  * @return {Promise} Promise that either resolved with ios-sim version
  *                           or rejected in case of error
@@ -155,8 +138,7 @@ exports.get_tool_version = function (toolName) {
         case 'xcodebuild': return exports.get_apple_xcode_version();
         case 'ios-sim': return exports.get_ios_sim_version();
         case 'ios-deploy': return exports.get_ios_deploy_version();
-        case 'pod': return exports.get_cocoapods_version();
-        default: return Q.reject(toolName + ' is not valid tool name. Valid names are: \'xcodebuild\', \'ios-sim\', \'ios-deploy\', and \'pod\'');
+        default: return Q.reject(toolName + ' is not valid tool name. Valid names are: \'xcodebuild\', \'ios-sim\' and \'ios-deploy\'');
     }
 };
 

@@ -26,7 +26,6 @@ var path = require('path');
 var fs = require('fs');
 var shell = require('shelljs');
 
-var pluginHandlers = require('./plugman/pluginHandlers');
 var CordovaError = require('cordova-common').CordovaError;
 
 var cachedProjectFiles = {};
@@ -48,7 +47,7 @@ function parseProjectFile(locations) {
     var config_file = path.join(path.dirname(plist_file), 'config.xml');
 
     if (!fs.existsSync(plist_file) || !fs.existsSync(config_file)) {
-        throw new CordovaError('Could not find *-Info.plist file, or config.xml file.');
+        throw new CordovaError('could not find -Info.plist file, or config.xml file.');
     }
 
     var frameworks_file = path.join(project_dir, 'frameworks.json');
@@ -81,12 +80,6 @@ function parseProjectFile(locations) {
         },
         getPackageName: function() {
             return plist.parse(fs.readFileSync(plist_file, 'utf8')).CFBundleIdentifier;
-        },
-        getInstaller: function (name) {
-            return pluginHandlers.getInstaller(name);
-        },
-        getUninstaller: function (name) {
-            return pluginHandlers.getUninstaller(name);
         },
         frameworks: frameworks
     };
