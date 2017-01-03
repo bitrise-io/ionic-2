@@ -4,7 +4,7 @@ Following the official guide: http://ionicframework.com/docs/v2/setup/installati
 
 ## Guide Draft
 
-## Registration
+### Registration
 
 1. [Register the repository on bitrise.io](http://devcenter.bitrise.io/getting-started/create-your-first-app-on-bitrise/)
 1. As [bitrise.io](https://www.bitrise.io) can't auto recognize Ionic projects right now, it's best to select the __Configure manually without project scanning__ option in the __Validation setup__ section during the setup
@@ -13,7 +13,7 @@ Following the official guide: http://ionicframework.com/docs/v2/setup/installati
     * For Android builds: select the __Android & Docker, on Ubuntu 16.04__ option.
     * For iOS builds: select the right __Xcode x.x.x, on macOS__ option (the same Xcode version you use on your Mac).
 
-## Prepare the Android project
+### Prepare the Android project
 
 1. Make sure that you don't .gitignore the `platforms/` directory (it's in `.gitignore` by default
 if you generated the project with `ionic start ProjectName --v2`).
@@ -26,7 +26,7 @@ if you generated the project with `ionic start ProjectName --v2`).
     * And the default `.gitignore` in the generated `platform/android` by default is incorrect,
       `/build` should be replaced with `build/`, and `.gradle` should be added.
 
-## Prepare the iOS project
+### Prepare the iOS project
 
 1. Make sure that you don't .gitignore the `platforms/` directory (it's in `.gitignore` by default
 if you generated the project with `ionic start ProjectName --v2`).
