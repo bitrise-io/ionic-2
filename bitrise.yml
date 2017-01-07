@@ -3,11 +3,6 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
   envs:
   - IONIC_PROJ_DIR_PATH: ./cutePuppyPics
-trigger_map:
-- push_branch: '*'
-  workflow: ci
-- pull_request_source_branch: '*'
-  workflow: ci
 workflows:
   _ci_finish:
     steps:
