@@ -30,6 +30,7 @@ workflows:
             set -ex
             #
             npm install
+            mkdir www
             ionic platform add android
             ionic build android --prod
             mv ./platforms/android/build/outputs/apk/android-debug.apk "${BITRISE_DEPLOY_DIR}"
@@ -54,6 +55,7 @@ workflows:
             set -ex
             #
             npm install
+            mkdir www
             ionic platform add ios
             ionic build ios --prod
           opts: {}
