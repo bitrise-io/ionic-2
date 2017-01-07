@@ -54,9 +54,8 @@ workflows:
             set -ex
             #
             npm install
-            # ionic platform add ios
-            ionic build ios
-            # mv ./platforms/android/build/outputs/apk/android-debug.apk "${BITRISE_DEPLOY_DIR}"
+            ionic platform add ios
+            ionic build ios --prod
           opts: {}
     - certificate-and-profile-installer@1.8.2: {}
     - xcode-archive@2.0.4: {}
