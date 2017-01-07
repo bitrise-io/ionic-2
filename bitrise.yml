@@ -18,19 +18,6 @@ workflows:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@3.4.1: {}
-    - script@1.1.3:
-        title: Install ionic and cordova
-        inputs:
-        - content: |-
-            #!/bin/bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            ionic --version || npm install -g ionic
-            cordova --version || npm install -g cordova
-          opts: {}
   build-android:
     steps:
     - change-workdir@1.0.1:
@@ -45,14 +32,11 @@ workflows:
         inputs:
         - content: |-
             #!/bin/bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
+            set -ex
+            #
             npm install
-            # ionic platform add android
-            ionic build android
+            ionic platform add android
+            ionic build android --prod
             mv ./platforms/android/build/outputs/apk/android-debug.apk "${BITRISE_DEPLOY_DIR}"
           opts: {}
   build-ios:
@@ -72,11 +56,8 @@ workflows:
         inputs:
         - content: |-
             #!/bin/bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
+            set -ex
+            #
             npm install
             # ionic platform add ios
             ionic build ios
@@ -84,9 +65,15 @@ workflows:
           opts: {}
     - certificate-and-profile-installer@1.8.2: {}
     - xcode-archive@2.0.4: {}
-  ci:
+  ci-ios:
     before_run:
     - _ci_setup
     after_run:
     - build-ios
+    - _ci_finish
+  ci-android:
+    before_run:
+    - _ci_setup
+    after_run:
+    - build-android
     - _ci_finish
