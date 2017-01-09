@@ -63,7 +63,9 @@ workflows:
         inputs:
         - project_path: $BITRISE_PROJECT_PATH
     - certificate-and-profile-installer@1.8.2: {}
-    - xcode-archive@2.0.4: {}
+    - xcode-archive@2.0.4:
+        inputs:
+        - force_team_id: 72SA8V3WYL
   ci-ios:
     before_run:
     - _ci_setup
