@@ -43,10 +43,8 @@ workflows:
     - change-workdir@1.0.1:
         title: Change workdir to ionic project dir
         inputs:
-        - opts: {}
-          path: $IONIC_PROJ_DIR_PATH
+        - path: $IONIC_PROJ_DIR_PATH
         - is_create_path: "false"
-          opts: {}
     - script@1.1.3:
         title: Build the app for distribution
         inputs:
@@ -58,7 +56,6 @@ workflows:
             mkdir -p www
             ionic platform add ios
             ionic build ios --prod
-          opts: {}
     - recreate-user-schemes:
         inputs:
         - project_path: $BITRISE_PROJECT_PATH
