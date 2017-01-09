@@ -63,6 +63,7 @@ workflows:
     - xcode-archive@2.0.4:
         inputs:
         - force_team_id: 72SA8V3WYL
+        - force_code_sign_identity: iPhone Developer
   ci-ios:
     before_run:
     - _ci_setup
